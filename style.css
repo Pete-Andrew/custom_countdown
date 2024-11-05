@@ -1,5 +1,7 @@
 
 
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 html {
   box-sizing: border-box;
 }
@@ -10,7 +12,7 @@ body {
   overflow-y: hidden;
   display: flex;
   align-items: center;
-
+  font-family: Nunito, sans-serif;
 }
 
 /* Video Background */
@@ -33,7 +35,9 @@ video {
   position: fixed;
   left: 0;
   top: 0;
-
+  height: 100vh;
+  width: 100vw;
+  background: rgba(255,255,255, 0.35);
 }
 
 /* Container */
@@ -47,7 +51,7 @@ video {
   z-index: 2;
   display: flex;
   justify-content: center;
-
+  background: rgba(255,255,255, 0.85);
 }
 
 .input-container {
@@ -80,7 +84,7 @@ input {
   border-radius: 20px;
   background: #fff;
   outline: none;
-
+  font-family: Nunito, sans-serif;
 }
 
 /* Button */
@@ -95,8 +99,13 @@ button {
   color: white;
   cursor: pointer;
   outline: none;
+  
 }
 
+button:hover {
+  filter: brightness(110%);
+  
+}
 
 
 /* Countdown */
@@ -105,7 +114,7 @@ ul {
 }
 
 li {
-
+  display: inline-block;
   font-size: 30px;
   list-style-type: none;
   padding: 10px;
@@ -124,6 +133,18 @@ li span {
   top: 60px;
 }
 
+.complete-title {
+  animation: complete 4s infinite;
+}
+
+@keyframes complete {
+  0% {color:rgb(235, 38, 38);}
+  25% {color:rgba(201, 245, 9, 0.904)}
+  50% {color:rgba(22, 255, 1, 0.877);
+      transform: scale(1.5) ;}
+  75% {color:rgb(11, 215, 241)}
+  100% {color:rgb(235, 38, 209)}
+}
 
 /* Media Query: Large Smartphone (Vertical) */
 @media screen and (max-width: 600px) {
@@ -139,7 +160,8 @@ li span {
   }
 
   .container {
-
+    min-width: unset;
+    width: 95vw;
     min-height: 245px;
     padding: 20px;
     margin: 10px;
