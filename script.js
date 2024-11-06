@@ -12,10 +12,11 @@ const timeElements = document.querySelectorAll('span') //selects anything within
 let countdownTitle = '';
 let countdownDate = '';
 let countdownValue = Date; //explicitly a date object
+let countdownActive;
 
 const second = 1000;
-const minutes = second*60;
-const hour = minutes*60;
+const minute = second*60;
+const hour = minute*60;
 const day = hour*24;
 
 // Set Date Input Min with Todays date
@@ -23,13 +24,33 @@ const today = new Date().toISOString().split('T')[0]; //returns the 1st item of 
 dateEl.setAttribute('min', today); // sets the min date attribute so you can't set a past date
 
 //populate the countdown / UI
-function updateDOM () {
-    const now = new Date().getTime(); // getting current date and how far is is from 1970, returns a millisecond value
-    const distance = countdownValue - now; //countdown value is in the future
-    console.log('distance', distance); 
+function updateDOM() {
+    countdownActive = setInterval(() => {  //the contents of the updateDOM function is wrapped in a setInterval so it fires every second.
+        const now = new Date().getTime(); // getting current date and how far is is from 1970, returns a millisecond value
+        const distance = countdownValue - now; //countdown value is in the future
+        console.log('distance', distance);
 
+        const days = Math.floor(distance / day);  //math.floor returns nearest whole number (round down)
+        const hours = Math.floor((distance % day) / hour); //uses a modulus, returns the remained when one is divided by the other.  
+        const minutes = Math.floor((distance % hour) / minute);
+        const seconds = Math.floor((distance % minute) / second);
+        console.log(days, hours, minutes, seconds);
+
+        //Populating Countdown
+        countdownElTitle.textContent = `${countdownTitle}`;
+        timeElements[0].textContent = `${days}`;
+        timeElements[1].textContent = `${hours}`;
+        timeElements[2].textContent = `${minutes}`;
+        timeElements[3].textContent = `${seconds}`;
+
+        //swaps the visible aspects of the DOM
+        // Hide input
+        inputContainer.hidden = true
+        // show Countdown
+        countdownEl.hidden = false
+    },second);
 }
-
+ 
 
 //Takes values from form input
 function updateCountdown (e) {
