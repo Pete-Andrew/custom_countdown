@@ -15,7 +15,7 @@ const completeElBtn = document.getElementById('complete-button');
 
 let countdownTitle = '';
 let countdownDate = '';
-let countdownValue = Date; //explicitly a date object
+let countdownValue = new Date(); //explicitly a date object
 let countdownActive;
 let savedCountdown;
 
@@ -31,7 +31,8 @@ dateEl.setAttribute('min', today); // sets the min date attribute so you can't s
 //populate the countdown / UI
 function updateDOM() {
     countdownActive = setInterval(() => {  //the contents of the updateDOM function is wrapped in a setInterval so it fires every second.
-        const now = new Date().getTime(); // getting current date and how far is is from 1970, returns a millisecond value
+        //'new' instantiates an object, run this function and create something out of it. 
+        const now = new Date().getTime(); // getting current date and how far is is from 1970, returns a millisecond value 
         const distance = countdownValue - now; //countdown value is in the future
         const days = Math.floor(distance / day);  //math.floor returns nearest whole number (round down)
         const hours = Math.floor((distance % day) / hour); //uses a modulus, returns the remained when one is divided by the other.  
@@ -99,7 +100,7 @@ function reset() {
     // reset values
     countdownTitle = '';
     countdownDate = '';
-    
+    localStorage.removeItem('countdown');
 }
 
 function restorePreviousCountdown() {
